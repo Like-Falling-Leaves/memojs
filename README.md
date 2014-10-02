@@ -16,6 +16,10 @@ This module is experimental and the kinks have yet to be worked out.
     npm install memojs
 
 
+## Plugins
+   
+* A Redis plugin is available -- [memojs-redis](https://github.com/like-falling-leaves/memojs-redis)
+
 ## API
 
 There are two seperate ways to invoke this library.  The simpler approach is by Function prototype and the other approach is explicit initialization.
