@@ -41,12 +41,13 @@ function memoize() {
 }
 
 function getMemoized() {
-  if (this._memoized) this._memoized = this.memoize();
+  if (!this._memoized) this._memoized = this.memoize();
   return this._memoized;
 }
 
-function configure(opts) { copyProperties(this.options, opts); }
+function configure(opts) { copyProperties(this.options, opts); return this; }
 function copyProperties(dest, src) {
-  if (!src) return;
+  if (!src) return dest;
   for (var key in src) if (src.hasOwnProperty(key)) dest[key] = src[key];
+  return dest;
 }
