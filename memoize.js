@@ -14,10 +14,14 @@ function memoize() {
   } else {
     // no fn available -- just return a memoize fn back so the fn can be supplied later on
     args = Array.prototype.slice.call(arguments);
-    return function () { 
+    var ret = function () { 
       var args2 = Array.prototype.slice.call(arguments).concat(args);
       return memoize.apply(this, args2);
-    }
+    };
+    args[0] = args[0] || {};
+    ret.configure = configure;
+    ret.options = args[0] || {};
+    return ret;
   }
 
   var options = Object.create(defaults);

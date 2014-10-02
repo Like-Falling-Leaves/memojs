@@ -9,6 +9,23 @@ var readThrough = false;
 function testIt(x, y) { return readThrough ? 42 : (x + y); }
 function testItAsync(x, y, done) { setTimeout(function () { done(null, readThrough ? 42 : x + y); }, 100); }
 
+describe('Global Configuration', function () {
+  describe('Module level', function () {
+    it ('should allow creating configuration globally', function (done) {
+      memoize.configure({maxAge: 30});
+      var memoized = memoize(testIt);
+      memoized.configure({name: 'MMMM'});
+      memoized.sync(20, 3, function (err, value, _entry) {
+        assert.ok(!err);
+        assert.equal(23, value);
+        assert.ok(_entry);
+        assert.ok(_entry.expires <= (new Date().getTime()) + (30 * 1000));
+        done();
+      });
+    });
+  });
+});
+
 describe('Explicit Memoizer', function () {
   describe('Sync tests', function () {
     it('should create a memoizer for a sync function', function (done) {
