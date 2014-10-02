@@ -4,7 +4,7 @@ Memoization framework for NodeJS.  There are several memoization modules already
 
 This is not a complex ES6-compliant memoization library but it will work for simple caches.  In particular, this comes with a very basic memory cache but REDIS, MongoDB and S3 plugins are in the works. In addition, it is possible to do multi-layered caching this way.
 
-[![NPM info](https://nodei.co/npm/memjos.png?downloads=true)](https://npmjs.org/package/memojs)
+[![NPM info](https://nodei.co/npm/memojs.png?downloads=true)](https://npmjs.org/package/memojs)
 
 [![Travis build status](https://api.travis-ci.org/Like-Falling-Leaves/memojs.png?branch=master)](
 https://travis-ci.org/Like-Falling-Leaves/memojs)
