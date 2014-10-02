@@ -36,7 +36,7 @@ function createMemoryStore(previousStore) {
 
       var newOptions = Object.create(options);
       newOptions.maxAge = Math.floor((entry.expires - now) / 1000);
-      return done(err, value, setter(key, newOptions, value) || entry);
+      return done(err, value, setter(key, newOptions, value));
     }
   }
 
