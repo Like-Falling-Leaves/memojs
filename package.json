@@ -1,0 +1,17 @@
+{
+  "name": "memojs",
+  "description": "A simple elegant memoizer for node-js that supports pluggable caches",
+  "keywords": ["memoize", "memoization", "cache", "redis"],
+  "homepage": "https://github.com/like-falling-leaves/memojs",
+  "bugs": { "url": "https://github.com/like-falling-leaves/memojs/issues" },
+  "license": "MIT",
+  "author": {"name": "Like FallingLeaves", "email": "likefallingleaves@gmail.com"},
+  "main": "./memoize.js",
+  "maintainers": [{"name": "Like FallingLeaves", "email": "likefallingleaves@gmail.com"}],
+  "version": "0.0.1",
+  "repository": { "type": "git", "url": "git://github.com/like-falling-leaves/memojs.git" },
+  "readmeFilename": "README.md",
+  "dependencies": {},
+  "devDependencies": { "mocha": "1.*" },
+  "scripts": { "test": "mocha test/" }
+}
