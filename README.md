@@ -19,6 +19,7 @@ This module is experimental and the kinks have yet to be worked out.
 ## Plugins
    
 * A Redis plugin is available -- [memojs-redis](https://github.com/like-falling-leaves/memojs-redis)
+* A MongoDB plugin is available -- [memojs-mongodb](https://github.com/like-falling-leaves/memojs-mongodb)
 
 ## API
 
