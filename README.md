@@ -171,7 +171,7 @@ In that case, you can use the memoryDomain store which stores the cache only on 
   memojs.configure({store: store});
 
   // any future calls to memojs will use the local store as needed.
-```javascript
+```
 
 ### Chaining stores.
 
