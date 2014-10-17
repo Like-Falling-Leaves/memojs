@@ -20,6 +20,8 @@ This module is experimental and the kinks have yet to be worked out.
    
 * A Redis plugin is available -- [memojs-redis](https://github.com/like-falling-leaves/memojs-redis)
 * A MongoDB plugin is available -- [memojs-mongodb](https://github.com/like-falling-leaves/memojs-mongodb)
+* A simple in memory plugin is included by default
+* A per-domain cache is also available but not included by default
 
 ## API
 
@@ -137,3 +139,51 @@ More explicit documentation will be added soon.
 }
 ```
 
+### Using the built-in memory cache
+
+The module comes with a built in in-memory cache.  While this is interesting for short-lived applications, the memory cache needs to be pruned for long lived applications.  To do that, you need to explicitly set the store as follows:
+
+```javascript
+
+  var memojs = require('memojs');
+  var store = require('memojs/memory.js').create();
+  
+  // configure memojs to use this store.
+  memojs.configure({store: store});
+
+  // whenever you want to prune the keys, do:
+  // be warned that this could take a while.
+  store.prune();
+```
+
+### Using the built-in per-domain cache.
+
+Sometimes, the cache is only needed on a per-domain basis.  For example, if you are using a new node [domain](http://nodejs.org/api/domain.html) per HTTP request, or you are using one of the excellent expressjs domain middlewares ([connect-domain](https://www.npmjs.org/package/connect-domain) or [express-domain-middleware](https://www.npmjs.org/package/express-domain-middleware)), you may want to provide a cache that is only used on a request and thrown away.  For example, you read the user object and any database calls to read it again need to hit the cache.
+
+In that case, you can use the memoryDomain store which stores the cache only on the current active domain.
+
+```javascript
+
+  var memojs = require('memojs');
+  var store = require('memojs/memoryDomain').create();
+
+  // configure memojs to use this store
+  memojs.configure({store: store});
+
+  // any future calls to memojs will use the local store as needed.
+```javascript
+
+### Chaining stores.
+
+Sometimes you want to chain stores in a write-through fashion.  For example, use a per-domain store backed by a REDIS store.
+
+All the stores accept a previous store to pass the request through in case of a cache miss.
+
+
+```javascript
+   var redisStore = require('memojs-redis').create(null, {redisArgs: [port, host, {auth_pass: pwd}]});
+   var memoryStore = require('memojs/memory').create(redisStore);
+
+   // now use this
+   memojs.configure({store: memoryStore});
+```

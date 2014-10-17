@@ -4,12 +4,14 @@
 
 var assert = require('assert');
 var memoize = require('..');
+var memoryStore = require('../memory').create();
 
 var readThrough = false;
 function testIt(x, y) { return readThrough ? 42 : (x + y); }
 function testItAsync(x, y, done) { setTimeout(function () { done(null, readThrough ? 42 : x + y); }, 100); }
 
-describe('Global Configuration', function () {
+describe('Memory Global Configuration', function () {
+  beforeEach(function () { memoize.configure({store: memoryStore}); });
   describe('Module level', function () {
     it ('should allow creating configuration globally', function (done) {
       memoize.configure({maxAge: 30});
@@ -26,7 +28,8 @@ describe('Global Configuration', function () {
   });
 });
 
-describe('Explicit Memoizer', function () {
+describe('Memory Explicit Memoizer', function () {
+  beforeEach(function () { memoize.configure({store: memoryStore}); });
   describe('Sync tests', function () {
     it('should create a memoizer for a sync function', function (done) {
       var memoized = memoize(testIt);

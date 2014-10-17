@@ -53,6 +53,12 @@ function createMemoryStore(previousStore) {
     },
     clear: function () {
       store = {};
+    },
+    prune: function () {
+      var now = Date.now();
+      for (var key in store) {
+        if ((store[key] || {}).expires <= now) delete store[key];
+      }
     }
   };
 }
